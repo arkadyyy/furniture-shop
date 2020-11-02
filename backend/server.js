@@ -197,8 +197,6 @@ app.post(`${PREFIX}/setcart`, async (req, res) => {
   res.send(updatedCart[0]);
 });
 
-//
-const port = process.env.PORT || 7000;
-server.listen(port, () => {
-  console.log(`server listening on port ${port}`);
+server.listen(process.env.PORT || 7000, () => {
+  console.log(`server listening on port ${process.env.PORT}`);
 });
