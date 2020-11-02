@@ -15,7 +15,9 @@ app.use(cors({ credentials: true, origin: "http://localhost:3001" }));
 dotenv.config();
 
 const PREFIX = "/api";
-app.use("/", express.static(path.join(__dirname, "src")));
+// app.use("/", express.static(path.join(__dirname, "/src")));
+app.use("/", express.static(path.join(build)));
+
 connectDB();
 // Product.insertMany(products);
 // console.log(products);
