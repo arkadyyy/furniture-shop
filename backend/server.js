@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use(cors({ credentials: true, origin: "http://localhost:3001" }));
 dotenv.config();
 
+const PREFIX = "/api";
 connectDB();
 // Product.insertMany(products);
 // console.log(products);
@@ -32,7 +33,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.get("/products", async (req, res) => {
+app.get(`${PREFIX}/products`, async (req, res) => {
   const products = await Product.find({});
   res.send(products);
 
@@ -40,7 +41,7 @@ app.get("/products", async (req, res) => {
 });
 
 //get all prodcuts in specific category
-app.get("/products/:category", async (req, res) => {
+app.get(`${PREFIX}/products/:category`, async (req, res) => {
   console.log(req.params.category);
   let products = await Product.find({ category: req.params.category });
   console.log(products);
@@ -50,7 +51,7 @@ app.get("/products/:category", async (req, res) => {
 
 //create new product
 
-app.post("/newProduct", async (req, res) => {
+app.post(`${PREFIX}/newProduct`, async (req, res) => {
   console.log(req.body.newProduct);
   const product = await Product.create(req.body.newProduct);
 
@@ -61,7 +62,7 @@ app.post("/newProduct", async (req, res) => {
 
 //update product
 
-app.put("/updateproduct", async (req, res) => {
+app.put(`${PREFIX}/updateproduct`, async (req, res) => {
   try {
     await Product.deleteMany();
     Product.insertMany(req.body.products);
@@ -77,7 +78,7 @@ app.put("/updateproduct", async (req, res) => {
 
 //delete product
 
-app.delete("/removeproduct/:id", async (req, res) => {
+app.delete(`${PREFIX}/removeproduct/:id`, async (req, res) => {
   try {
     console.log(req.params);
     await Product.findOneAndDelete({ _id: req.params.id });
@@ -98,7 +99,7 @@ app.delete("/removeproduct/:id", async (req, res) => {
 
 //create user
 
-app.post("/signin", async (req, res) => {
+app.post(`${PREFIX}/signin`, async (req, res) => {
   console.log("new user", req.body);
   await User.create(req.body);
   const users = await User.find({});
@@ -108,7 +109,7 @@ app.post("/signin", async (req, res) => {
 
 //log in , check if an admin logged in if he does send to client that he did to enable admin funcions on client side
 
-app.post("/login", async (req, res) => {
+app.post(`${PREFIX}/login`, async (req, res) => {
   console.log(req.body);
   const user = await User.findOne({
     username: req.body.username,
@@ -147,7 +148,7 @@ app.post("/login", async (req, res) => {
 });
 
 //update user
-app.post("/updateuser", async (req, res) => {
+app.post(`${PREFIX}/updateuser`, async (req, res) => {
   console.log(req.body);
   const user = await User.findOneAndUpdate(
     { username: req.body.userData.username },
@@ -169,7 +170,7 @@ app.post("/updateuser", async (req, res) => {
 
 //set cart
 
-app.post("/setcart", async (req, res) => {
+app.post(`${PREFIX}/setcart`, async (req, res) => {
   console.log(req.body);
   console.log(req.body.username);
   const user = await User.find({ username: req.body.username });
