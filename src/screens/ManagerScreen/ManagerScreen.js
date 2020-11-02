@@ -14,14 +14,14 @@ const ManagerScreen = () => {
   const products = useSelector((state) => state.productReducer.products);
 
   const updateProduct = (products) => {
-    Axios.put("http://localhost:7000/updateproduct", { products }).then((res) =>
+    Axios.put("/api/updateproduct", { products }).then((res) =>
       console.log(res)
     );
     // dispatch(ProductsRequest());
   };
 
   const removeProduct = (_id) => {
-    Axios.delete(`http://localhost:7000/removeproduct/${_id}`).then((res) => {
+    Axios.delete(`/api/removeproduct/${_id}`).then((res) => {
       console.log(res);
       dispatch({ type: "PRODUCT_REMOVED", payload: res.data });
     });
@@ -29,12 +29,10 @@ const ManagerScreen = () => {
   };
 
   const newProduct = (newProduct) => {
-    Axios.post("http://localhost:7000/newProduct", { newProduct }).then(
-      (res) => {
-        console.log(res);
-        dispatch({ type: "PRODUCT_ADDED", payload: res.data });
-      }
-    );
+    Axios.post("/api/newProduct", { newProduct }).then((res) => {
+      console.log(res);
+      dispatch({ type: "PRODUCT_ADDED", payload: res.data });
+    });
 
     // dispatch(ProductsRequest());
   };

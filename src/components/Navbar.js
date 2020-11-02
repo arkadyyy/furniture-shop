@@ -43,7 +43,7 @@ const NavBar = ({ history }) => {
     const username = document.querySelector("#username").value;
     const password = document.querySelector("#password").value;
 
-    Axios.post("http://localhost:7000/login", {
+    Axios.post("/api/login", {
       username: username,
       password: password,
     }).then((res) => {
@@ -87,11 +87,9 @@ const NavBar = ({ history }) => {
   };
 
   const sendCartToServer = (username, cartItems) => {
-    Axios.post("http://localhost:7000/setcart", { username, cartItems }).then(
-      (res) => {
-        console.log(res);
-      }
-    );
+    Axios.post("/api/setcart", { username, cartItems }).then((res) => {
+      console.log(res);
+    });
   };
   useEffect(() => {
     sendCartToServer(username, cartItems);
