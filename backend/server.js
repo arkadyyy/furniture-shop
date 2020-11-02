@@ -16,7 +16,7 @@ dotenv.config();
 
 const PREFIX = "/api";
 // app.use("/", express.static(path.join(__dirname, "/src")));
-app.use("/", express.static(path.join(build)));
+app.use("/", "build");
 
 connectDB();
 // Product.insertMany(products);
